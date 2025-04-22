@@ -1,0 +1,30 @@
+@import "tailwindcss";
+
+@theme {
+  --color-primary: #202020;
+  --color-primary-hover: #252525;
+  --color-primary-active: #303030;
+
+  --color-secondary: #f8f8f8;
+  --color-secondary-hover: #134241;
+  --color-secondary-active: #e8e8e8;
+}
+
+:root {
+  font-family: "NanumSquareNeo";
+}
+
+@keyframes ripple-effect {
+  0% {
+    transform: scale(0);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(4.5);
+    opacity: 0;
+  }
+}
+
+.animate-ripple {
+  animation: ripple-effect 1.5s ease-in-out infinite;
+}

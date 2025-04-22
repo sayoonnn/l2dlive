@@ -1,0 +1,48 @@
+{
+  "Version": 3,
+  "FileReferences": {
+    "Moc": "ANIYA.moc3",
+    "Textures": [
+      "ANIYA.8192/texture_00.png",
+      "ANIYA.8192/texture_01.png",
+      "ANIYA.8192/texture_02.png",
+      "ANIYA.8192/texture_03.png",
+      "ANIYA.8192/texture_04.png",
+      "ANIYA.8192/texture_05.png"
+    ],
+    "Physics": "ANIYA.physics3.json",
+    "DisplayInfo": "ANIYA.cdi3.json",
+    "Expressions": [
+      { "Name": "doki_hand", "File": "./expressions/0.exp3.json" },
+      { "Name": "sad", "File": "./expressions/1.exp3.json" },
+      { "Name": "surprise", "File": "./expressions/2.exp3.json" },
+      { "Name": "bad_smile", "File": "./expressions/3.exp3.json" },
+      { "Name": "question_mark", "File": "./expressions/4.exp3.json" },
+      { "Name": "twinkle", "File": "./expressions/5.exp3.json" },
+      { "Name": "angry", "File": "./expressions/6.exp3.json" },
+      { "Name": "taciturn", "File": "./expressions/7.exp3.json" },
+      { "Name": "frog_eye", "File": "./expressions/8.exp3.json" },
+      { "Name": "very_angry", "File": "./expressions/u.exp3.json" },
+      { "Name": "very_sad", "File": "./expressions/W.exp3.json" },
+      { "Name": "y", "File": "./expressions/y.exp3.json" }
+    ]
+  },
+  "Motions": {
+    "tap_body": [
+      { "File": "motions/tap_body.motion3.json", "FadeIn": 200, "FadeOut": 200 }
+    ],
+    "normal_talk": [{ "File": "motions/zoulu.motion3.json" }]
+  },
+  "Groups": [
+    {
+      "Target": "Parameter",
+      "Name": "LipSync",
+      "Ids": ["ParamMouthOpenY", "ParamMouthForm"]
+    },
+    {
+      "Target": "Parameter",
+      "Name": "EyeBlink",
+      "Ids": ["ParamEyeLOpen", "ParamEyeROpen"]
+    }
+  ]
+}
