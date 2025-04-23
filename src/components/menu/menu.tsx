@@ -14,10 +14,11 @@ export default function Menu() {
   return !isOpen ? (
     <IconButton
       className={
-        "absolute m-3 text-stone-50 hover:text-stone-200 active:text-stone-400 z-20"
+        "absolute m-3 text-stone-600 hover:text-stone-700 active:text-stone-800 z-20 mx-10"
       }
       type={"settings"}
       clickEvent={() => setIsOpen(!isOpen)}
+      text="setting"
     />
   ) : (
     <div className="fixed bg-[rgba(0,0,0,0.8)] w-xl h-screen top-0 flex flex-col z-20">

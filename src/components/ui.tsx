@@ -6,7 +6,7 @@ import Caption from "./caption";
 
 import { SettingProvider } from "@/contexts/settingContext";
 
-import useSpeechRecognition from "@/hooks/speechRecognition";
+import useSpeechRecognition from "@/hooks/useSpeechRecognition";
 
 export default function UI() {
   const [responseText, setResponseText] = useState("");

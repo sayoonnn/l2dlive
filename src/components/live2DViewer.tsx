@@ -1,5 +1,6 @@
 import { useRef, useEffect } from "react";
 import { Live2DModel } from "pixi-live2d-display-lipsyncpatch";
+import useChatResponse from "@/hooks/useChatResponse";
 import * as PIXI from "pixi.js";
 
 (window as any).PIXI = PIXI;
@@ -56,8 +57,6 @@ export default function Live2DViewer() {
     });
 
     (async () => {
-      console.log(app);
-
       const model = await Live2DModel.from("/ANIYA/ANIYA.model3.json", {
         autoFocus: false,
       });
@@ -70,6 +69,8 @@ export default function Live2DViewer() {
     })();
   }, []);
 
+  useChatResponse(modelRef);
+
   return (
     <canvas
       ref={canvasRef}
@@ -79,8 +80,24 @@ export default function Live2DViewer() {
         backgroundSize: "cover",
         backgroundPosition: "center",
       }}
-      onClick={() => {
-        modelRef.current?.speak("/paimon03.wav");
+      onClick={async () => {
+        try {
+          const response = await fetch("http://183.101.161.244:8000/start", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              text: "안녕하세요 나는 아냐! 반가워요. 조금 긴 문장. 어떻게 진행될까요.",
+            }),
+          });
+
+          if (!response.ok) {
+            throw new Error("Network response was not ok");
+          }
+        } catch (error) {
+          console.error("Error:", error);
+        }
       }}
     />
   );
