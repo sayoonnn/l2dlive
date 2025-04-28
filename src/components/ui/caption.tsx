@@ -1,7 +1,7 @@
-import { useSetting } from "@/contexts/settingContext";
+import { useSettingContext } from "@/contexts/settingContext";
 
 export default function Caption({ text }: { text: string }) {
-  const { options } = useSetting();
+  const { options } = useSettingContext();
 
   if (!options.caption) return null;
 

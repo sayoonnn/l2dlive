@@ -1,5 +1,6 @@
-import { Live2DModel } from "pixi-live2d-display-lipsyncpatch";
 import { useEffect, useRef } from "react";
+import { Live2DModel } from "pixi-live2d-display-lipsyncpatch";
+import { log } from "@/utils/logger";
 
 export default function useChatResponse(
   modelRef: React.RefObject<Live2DModel | null>
@@ -13,7 +14,7 @@ export default function useChatResponse(
 
     textSocket.onmessage = (event) => {
       const data = JSON.parse(event.data);
-      console.log("📜 자막:", data.text);
+      log("📜 자막:", data.text);
     };
 
     audioSocket.onmessage = async (event) => {

@@ -24,7 +24,7 @@ export default function MicInput({
       ) : (
         <IconButton
           clickEvent={() => startRecognition()}
-          className="text-[rgba(255,255,255,.7)] bg-[rgba(0,0,0,0.5)] active:bg-[rgba(0,0,0,0.7)] active:text-[rgba(255,255,255,.8)]"
+          className="text-[rgba(255,255,255,.7)] bg-button-default active:bg-button-active active:text-[rgba(255,255,255,.8)]"
           type="mic"
         />
       )}

@@ -1,24 +1,45 @@
-import { createContext, useState, useContext } from "react";
+import { createContext, useState, useContext, useCallback } from "react";
+import characterPrompts from "@/constants/prompts";
 
-interface SettingContextType {
-  options: { caption: boolean; mouseTracking: boolean };
-  setOptions: React.Dispatch<
-    React.SetStateAction<{ caption: boolean; mouseTracking: boolean }>
-  >;
+interface OptionTypes {
+  caption: boolean;
+  apiKey: string;
+  instruction: string;
 }
 
-const defaultValue: SettingContextType = {
-  options: { caption: true, mouseTracking: false },
-  setOptions: () => {},
-};
+interface SettingContextType {
+  options: OptionTypes;
+  setOptions: (newOptions: OptionTypes) => void;
+}
+
+const defaultValue: SettingContextType = localStorage.getItem("options")
+  ? JSON.parse(localStorage.getItem("options")!)
+  : {
+      options: {
+        caption: true,
+        apiKey: "",
+        instruction: characterPrompts.sample,
+      },
+      setOptions: (OptionTypes) => {},
+    };
 
 const SettingContext = createContext<SettingContextType>(defaultValue);
 
 export function SettingProvider({ children }: { children: React.ReactNode }) {
-  const [options, setOptions] = useState({
-    caption: true,
-    mouseTracking: false,
+  const [options, _setOptions] = useState(() => {
+    const stored = localStorage.getItem("options");
+    return stored
+      ? (JSON.parse(stored) as OptionTypes)
+      : { caption: true, apiKey: "", instruction: characterPrompts.sample };
   });
+
+  const setOptions = useCallback(
+    (newOptions: OptionTypes) => {
+      _setOptions(newOptions);
+      localStorage.setItem("options", JSON.stringify(newOptions));
+    },
+    [options, _setOptions]
+  );
 
   return (
     <SettingContext.Provider value={{ options, setOptions }}>
@@ -27,6 +48,6 @@ export function SettingProvider({ children }: { children: React.ReactNode }) {
   );
 }
 
-export function useSetting() {
+export function useSettingContext() {
   return useContext(SettingContext);
 }
