@@ -14,48 +14,49 @@ export default function Live2DViewer() {
       resizeTo: window,
       backgroundAlpha: 0,
     });
+    app.ticker.maxFPS = 60;
     appRef.current = app;
 
     let offMouse: () => void;
     let offResize: () => void;
 
-    Live2DModel.from("/ANIYA/ANIYA.model3.json", { autoFocus: false }).then(
-      (model) => {
-        modelRef.current = model;
-        app.stage.addChild(model);
+    Live2DModel.from("/runtime/kei_vowels_pro.model3.json", {
+      autoFocus: false,
+    }).then((model) => {
+      modelRef.current = model;
+      app.stage.addChild(model);
 
-        const recalc = () => {
-          const w = app.renderer.width;
-          const h = app.renderer.height;
-          const base = Math.min(w, h);
-          const scale = base / 4096;
-          model.scale.set(scale, scale);
-          model.anchor.set(0.5, 0.5);
-          model.x = w / 2;
-          model.y = h * 0.9;
-        };
-        recalc();
+      const recalc = () => {
+        const w = app.renderer.width;
+        const h = app.renderer.height;
+        const base = Math.min(w, h);
+        const scale = base / 4096;
+        model.scale.set(scale, scale);
+        model.anchor.set(0.5, 0.5);
+        model.x = w / 2;
+        model.y = h * 0.9;
+      };
+      recalc();
 
-        app.renderer.on("resize", recalc);
-        offResize = () => app.renderer.off("resize", recalc);
+      app.renderer.on("resize", recalc);
+      offResize = () => app.renderer.off("resize", recalc);
 
-        const onPointer = (e: PointerEvent) => {
-          const b = model.getBounds();
-          const cx = b.x + b.width * 0.5;
-          const cy = b.y + b.height * 0.25;
-          const dx = ((e.clientX - cx) / app.renderer.width) * 2;
-          const dy = -((e.clientY - cy) / app.renderer.height) * 2;
-          const core = model.internalModel.coreModel as any;
-          core.setParameterValueById("ParamAngleX", dx * 30);
-          core.setParameterValueById("ParamAngleY", dy * 30);
-          core.setParameterValueById("ParamEyeBallX", dx);
-          core.setParameterValueById("ParamEyeBallY", dy);
-        };
+      const onPointer = (e: PointerEvent) => {
+        const b = model.getBounds();
+        const cx = b.x + b.width * 0.5;
+        const cy = b.y + b.height * 0.25;
+        const dx = ((e.clientX - cx) / app.renderer.width) * 2;
+        const dy = -((e.clientY - cy) / app.renderer.height) * 2;
+        const core = model.internalModel.coreModel as any;
+        core.setParameterValueById("ParamAngleX", dx * 30);
+        core.setParameterValueById("ParamAngleY", dy * 30);
+        core.setParameterValueById("ParamEyeBallX", dx);
+        core.setParameterValueById("ParamEyeBallY", dy);
+      };
 
-        window.addEventListener("pointermove", onPointer);
-        offMouse = () => window.removeEventListener("pointermove", onPointer);
-      }
-    );
+      window.addEventListener("pointermove", onPointer);
+      offMouse = () => window.removeEventListener("pointermove", onPointer);
+    });
 
     return () => {
       offMouse?.();

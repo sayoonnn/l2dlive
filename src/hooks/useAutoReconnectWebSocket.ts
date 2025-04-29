@@ -7,13 +7,17 @@ export default function useAutoReconnectWebSocket(
   url: string,
   maxRetries = 5,
   initialDelay = 1000
-) {
+): {
+  socket: WebSocket | null;
+  readyState: ReadyState;
+} {
   const socketRef = useRef<WebSocket | null>(null);
   const [readyState, setReadyState] = useState<ReadyState>(WebSocket.CLOSED);
   const retryCountRef = useRef(0);
 
   const connect = useCallback(() => {
     const ws = new WebSocket(url);
+    ws.binaryType = "arraybuffer";
     socketRef.current = ws;
     setReadyState(ws.readyState);
 

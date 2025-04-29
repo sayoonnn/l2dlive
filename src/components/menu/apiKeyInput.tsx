@@ -1,5 +1,4 @@
 import { useState } from "react";
-import { useSessionContext } from "@/contexts/sessionContext";
 
 export default function ApiKeyInput({
   apiKey,
@@ -9,7 +8,6 @@ export default function ApiKeyInput({
   setApiKey: (key: string) => void;
 }) {
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
-  const { sessionStatus } = useSessionContext();
 
   return (
     <>
@@ -27,9 +25,7 @@ export default function ApiKeyInput({
         <input
           type={isPasswordVisible ? "text" : "password"}
           className={`w-full h-10 bg-transparent text-gray-50 px-1 border-b-2 focus:outline-none ${
-            !apiKey || sessionStatus !== "Connected"
-              ? "border-red-500"
-              : "border-stone-50"
+            !apiKey ? "border-red-500" : "border-stone-50"
           }`}
           placeholder="API 키를 넣어주세요"
           onChange={(e) => {
@@ -39,10 +35,9 @@ export default function ApiKeyInput({
           value={apiKey}
         />
 
-        {(apiKey === "" || sessionStatus !== "Connected") && (
+        {apiKey === "" && (
           <p className="absolute -bottom-7 text-red-500 text-sm">
-            {(apiKey === "" && "API 키를 입력해주세요.") ||
-              (sessionStatus !== "Connected" && "API 키가 유효하지 않습니다.")}
+            API 키를 입력해주세요.
           </p>
         )}
 
