@@ -3,7 +3,6 @@ import { useSettingContext } from "@/contexts/settingContext";
 
 import IconButton from "@/components/ui/iconButton";
 import SlideOption from "./slideOption";
-import ApiKeyInput from "./apiKeyInput";
 import InstructionEditor from "./instructionEditor";
 
 function MenuContainer({ children }: { children: React.ReactNode }) {
@@ -18,10 +17,6 @@ export default function Menu() {
   const { options, setOptions } = useSettingContext();
   const [isOpen, setIsOpen] = useState(false);
 
-  useEffect(() => {
-    if (!options.apiKey) setIsOpen(true);
-  }, []);
-
   if (isOpen)
     return (
       <div className="absolute bg-[rgba(0,0,0,0.8)] w-screen h-screen top-0 flex flex-col z-20">
@@ -35,14 +30,6 @@ export default function Menu() {
           />
 
           <h1 className="my-8 text-2xl text-stone-50 font-extrabold">설정</h1>
-
-          <MenuContainer>
-            <MenuHead>Gemini API 키</MenuHead>
-            <ApiKeyInput
-              apiKey={options.apiKey}
-              setApiKey={(key) => setOptions({ ...options, apiKey: key })}
-            />
-          </MenuContainer>
 
           <MenuContainer>
             <MenuHead>자막 설정</MenuHead>

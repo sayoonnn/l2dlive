@@ -3,7 +3,6 @@ import characterPrompts from "@/constants/prompts";
 
 interface OptionTypes {
   caption: boolean;
-  apiKey: string;
   instruction: string;
 }
 
@@ -17,7 +16,6 @@ const defaultValue: SettingContextType = localStorage.getItem("options")
   : {
       options: {
         caption: true,
-        apiKey: "",
         instruction: characterPrompts.sample,
       },
       setOptions: (OptionTypes) => {},
@@ -30,7 +28,7 @@ export function SettingProvider({ children }: { children: React.ReactNode }) {
     const stored = localStorage.getItem("options");
     return stored
       ? (JSON.parse(stored) as OptionTypes)
-      : { caption: true, apiKey: "", instruction: characterPrompts.sample };
+      : { caption: true, instruction: characterPrompts.sample };
   });
 
   const setOptions = useCallback(

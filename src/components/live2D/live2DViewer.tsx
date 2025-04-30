@@ -29,12 +29,10 @@ export default function Live2DViewer() {
       const recalc = () => {
         const w = app.renderer.width;
         const h = app.renderer.height;
-        const base = Math.min(w, h);
-        const scale = base / 4096;
-        model.scale.set(scale, scale);
+        model.scale.set(0.9, 0.9);
         model.anchor.set(0.5, 0.5);
         model.x = w / 2;
-        model.y = h * 0.9;
+        model.y = h / 2;
       };
       recalc();
 
@@ -68,7 +66,7 @@ export default function Live2DViewer() {
   return (
     <canvas
       ref={canvasRef}
-      className="w-full h-full cursor-pointer -z-10 bg-size-cover bg-center bg-[url(/background2.png)]"
+      className="w-full h-full cursor-pointer -z-10 bg-size-cover bg-center bg-stone-900"
     />
   );
 }
