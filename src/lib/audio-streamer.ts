@@ -22,7 +22,7 @@ import {
 export class AudioStreamer {
   public audioQueue: Float32Array[] = [];
   private isPlaying: boolean = false;
-  private sampleRate: number = 44100;
+  private sampleRate: number = 24000;
   private bufferSize: number = 7680;
   private processingBuffer: Float32Array = new Float32Array(0);
   private scheduledTime: number = 0;
@@ -74,8 +74,21 @@ export class AudioStreamer {
     return this;
   }
 
-  addPCM16(chunk: Float32Array) {
-    const float32Array = chunk;
+  addPCM16(chunk: Uint8Array) {
+    const float32Array = new Float32Array(chunk.length / 2);
+    const dataView = new DataView(chunk.buffer);
+
+    for (let i = 0; i < chunk.length / 2; i++) {
+      try {
+        const int16 = dataView.getInt16(i * 2, true);
+        float32Array[i] = int16 / 32768;
+      } catch (e) {
+        console.error(e);
+        // console.log(
+        //   `dataView.length: ${dataView.byteLength},  i * 2: ${i * 2}`,
+        // );
+      }
+    }
 
     const newBuffer = new Float32Array(
       this.processingBuffer.length + float32Array.length

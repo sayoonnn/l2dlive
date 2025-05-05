@@ -21,6 +21,16 @@ import VolMeterWorket from "./worklets/vol-meter";
 import { createWorketFromSrc } from "./audioworklet-registry";
 import EventEmitter from "eventemitter3";
 
+function arrayBufferToBase64(buffer: ArrayBuffer) {
+  var binary = "";
+  var bytes = new Uint8Array(buffer);
+  var len = bytes.byteLength;
+  for (var i = 0; i < len; i++) {
+    binary += String.fromCharCode(bytes[i]);
+  }
+  return window.btoa(binary);
+}
+
 export class AudioRecorder extends EventEmitter {
   stream: MediaStream | undefined;
   audioContext: AudioContext | undefined;
@@ -59,7 +69,8 @@ export class AudioRecorder extends EventEmitter {
         const arrayBuffer = ev.data.data.int16arrayBuffer;
 
         if (arrayBuffer) {
-          this.emit("data", arrayBuffer);
+          const arrayBufferString = arrayBufferToBase64(arrayBuffer);
+          this.emit("data", arrayBufferString);
         }
       };
       this.source.connect(this.recordingWorklet);

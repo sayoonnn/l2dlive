@@ -29,7 +29,7 @@ export default function Live2DViewer() {
       const recalc = () => {
         const w = app.renderer.width;
         const h = app.renderer.height;
-        model.scale.set(0.9, 0.9);
+        model.scale.set(1, 1);
         model.anchor.set(0.5, 0.5);
         model.x = w / 2;
         model.y = h / 2;

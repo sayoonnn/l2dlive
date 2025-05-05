@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { useSettingContext } from "@/contexts/settingContext";
 
-import IconButton from "@/components/ui/iconButton";
-import SlideOption from "./slideOption";
-import InstructionEditor from "./instructionEditor";
+import IconButton from "@/components/ui/IconButton";
+import SlideOption from "./SlideOption";
+import InstructionEditor from "./InstructionEditor";
 
 function MenuContainer({ children }: { children: React.ReactNode }) {
   return <div className="my-10">{children}</div>;

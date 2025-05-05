@@ -1,16 +1,16 @@
 import React, { useEffect } from "react";
 import useAutoReconnectWebSocket from "@/hooks/useAutoReconnectWebSocket";
 
-import Menu from "@/components/menu/menu";
-import Caption from "@/components/ui/caption";
-import MicInput from "@/components/ui/micInput";
+import Menu from "@/components/menu/Menu";
+import Caption from "@/components/ui/Caption";
+import MicInput from "@/components/ui/MicInput";
 
 import useAudioRecorder from "@/hooks/useAudioRecorder";
 import useAudioStreamer from "@/hooks/useAudioStreamer";
 
 export default function UI() {
   const { socket: audioSocket, readyState } = useAutoReconnectWebSocket(
-    `${import.meta.env.VITE_SERVER_URL_WS}/ws/audio`
+    `${import.meta.env.VITE_SERVER_URL_WS}/ws/stream`
   );
   const { muted, setMuted } = useAudioRecorder(audioSocket);
   const { audioStreamer } = useAudioStreamer(audioSocket);
@@ -19,6 +19,12 @@ export default function UI() {
     if (audioStreamer) {
       audioStreamer.resume();
     }
+
+    return () => {
+      if (audioStreamer) {
+        audioStreamer.stop();
+      }
+    };
   }, []);
 
   useEffect(() => {

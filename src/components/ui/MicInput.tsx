@@ -1,5 +1,5 @@
 import React from "react";
-import IconButton from "./iconButton";
+import IconButton from "./IconButton";
 
 export default function MicInput({
   isRecording,
