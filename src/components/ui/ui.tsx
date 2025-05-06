@@ -10,7 +10,7 @@ import useAudioStreamer from "@/hooks/useAudioStreamer";
 
 export default function UI() {
   const { socket: audioSocket, readyState } = useAutoReconnectWebSocket(
-    `${import.meta.env.VITE_SERVER_URL_WS}/ws/stream`
+    `${import.meta.env.VITE_SERVER_URL}`
   );
   const { muted, setMuted } = useAudioRecorder(audioSocket);
   const { audioStreamer } = useAudioStreamer(audioSocket);
