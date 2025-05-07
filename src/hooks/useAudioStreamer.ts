@@ -23,7 +23,7 @@ export default function useAudioStreamer(socket: WebSocket | null) {
     });
 
     socket.onmessage = (event: MessageEvent) => {
-      const chunk = new Float32Array(event.data);
+      const chunk = new Uint8Array(event.data);
       audioStreamerRef.current?.addPCM16(chunk);
     };
   }, [socket, audioStreamerRef]);

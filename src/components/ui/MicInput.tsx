@@ -14,10 +14,10 @@ export default function MicInput({
     <div className="w-full flex justify-center my-10">
       {isRecording ? (
         <div className="relative flex contents-center justify-center">
-          <div className="absolute animate-ripple m-5 rounded-full border border-red-300 h-[33px] w-[33px] z-10" />
+          <div className="absolute animate-ripple m-5 rounded-full border border-blue-300 h-[33px] w-[33px] z-10" />
           <IconButton
             clickEvent={() => stopRecognition()}
-            className="text-white bg-red-500 active:bg-red-600 z-11"
+            className="text-white bg-blue-500 active:bg-blue-600 z-11"
             type="mic"
           />
         </div>
